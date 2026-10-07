@@ -10,7 +10,7 @@ export function Catalog({ addToCart }) {
       discount: '-50%', 
       originalPrice: 59990, 
       icon: 'bi-steam',
-      image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80' 
+      image: '/juegos/cyberpunk.jpg' 
     },
     { 
       id: 2, 
@@ -20,7 +20,7 @@ export function Catalog({ addToCart }) {
       discount: '-35%', 
       originalPrice: 59990, 
       icon: 'bi-xbox',
-      image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80' 
+      image: '/juegos/eldenring.png' 
     },
     { 
       id: 3, 
@@ -30,7 +30,7 @@ export function Catalog({ addToCart }) {
       discount: '-60%', 
       originalPrice: 32490, 
       icon: 'bi-controller',
-      image: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=600&q=80' 
+      image: '/juegos/gtaV.png' 
     },
     { 
       id: 4, 
@@ -40,7 +40,7 @@ export function Catalog({ addToCart }) {
       discount: '-67%', 
       originalPrice: 59990, 
       icon: 'bi-steam',
-      image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80' 
+      image: '/juegos/rdr2.png' 
     },
     { 
       id: 5, 
@@ -50,7 +50,7 @@ export function Catalog({ addToCart }) {
       discount: '-25%', 
       originalPrice: 59990, 
       icon: 'bi-playstation',
-      image: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=600&q=80' 
+      image: '/juegos/gowragnarok.png' 
     },
     { 
       id: 6, 
@@ -60,7 +60,7 @@ export function Catalog({ addToCart }) {
       discount: '-50%', 
       originalPrice: 59990, 
       icon: 'bi-xbox',
-      image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=600&q=80' 
+      image: '/juegos/fifa.jpg' 
     },
     { 
       id: 7, 
@@ -70,17 +70,17 @@ export function Catalog({ addToCart }) {
       discount: '-75%', 
       originalPrice: 39990, 
       icon: 'bi-steam',
-      image: 'https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?auto=format&fit=crop&w=600&q=80' 
+      image: '/juegos/witcher.png' 
     },
     { 
       id: 8, 
-      title: "Spider-Man Remastered", 
+      title: 'Spider-Man Remastered', 
       store: 'PlayStation', 
       price: 34990, 
       discount: '-40%', 
       originalPrice: 57990, 
       icon: 'bi-playstation',
-      image: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=600&q=80' 
+      image: '/juegos/spiderman.jpg' 
     },
     { 
       id: 9, 
@@ -90,7 +90,7 @@ export function Catalog({ addToCart }) {
       discount: '-45%', 
       originalPrice: 59990, 
       icon: 'bi-xbox',
-      image: 'https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=600&q=80' 
+      image: '/juegos/starfield.png' 
     },
     { 
       id: 10, 
@@ -100,7 +100,117 @@ export function Catalog({ addToCart }) {
       discount: '-50%', 
       originalPrice: 49990, 
       icon: 'bi-controller',
-      image: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=600&q=80' 
+      image: '/juegos/residentevil4.jpg' 
+    },
+    { 
+      id: 11, 
+      title: 'Cuphead', 
+      store: 'Steam', 
+      price: 10990, 
+      discount: '-30%', 
+      originalPrice: 15990, 
+      icon: 'bi-steam',
+      image: '/juegos/cuphead.png' 
+    },
+    { 
+      id: 12, 
+      title: 'Dying Light', 
+      store: 'Steam', 
+      price: 14990, 
+      discount: '-70%', 
+      originalPrice: 49990, 
+      icon: 'bi-steam',
+      image: '/juegos/dyinglight.jpg' 
+    },
+    { 
+      id: 13, 
+      title: 'Grand Theft Auto IV', 
+      store: 'Steam', 
+      price: 7990, 
+      discount: '-65%', 
+      originalPrice: 22990, 
+      icon: 'bi-steam',
+      image: '/juegos/gta 4.png' 
+    },
+    { 
+      id: 14, 
+      title: 'Hogwarts Legacy', 
+      store: 'Epic Games', 
+      price: 29990, 
+      discount: '-40%', 
+      originalPrice: 49990, 
+      icon: 'bi-controller',
+      image: '/juegos/harrypotter.jpg' 
+    },
+    { 
+      id: 15, 
+      title: 'Sons of the Forest', 
+      store: 'Steam', 
+      price: 14990, 
+      discount: '-25%', 
+      originalPrice: 19990, 
+      icon: 'bi-steam',
+      image: '/juegos/sonsoftheforest.jpg' 
+    },
+    { 
+      id: 16, 
+      title: 'Terraria', 
+      store: 'Steam', 
+      price: 5990, 
+      discount: '-50%', 
+      originalPrice: 11990, 
+      icon: 'bi-steam',
+      image: '/juegos/terraria.jpg' 
+    },
+    { 
+      id: 17, 
+      title: 'The Forest', 
+      store: 'Steam', 
+      price: 4990, 
+      discount: '-75%', 
+      originalPrice: 19990, 
+      icon: 'bi-steam',
+      image: '/juegos/theforest.png' 
+    },
+    { 
+      id: 18, 
+      title: 'Minecraft', 
+      store: 'Xbox Store', 
+      price: 14990, 
+      discount: '-25%', 
+      originalPrice: 19990, 
+      icon: 'bi-xbox',
+      image: '/juegos/minecraft.jpg' 
+    },
+    { 
+      id: 19, 
+      title: 'Outlast', 
+      store: 'Steam', 
+      price: 3990, 
+      discount: '-80%', 
+      originalPrice: 19990, 
+      icon: 'bi-steam',
+      image: '/juegos/outlast.jpg' 
+    },
+    { 
+      id: 20, 
+      title: 'Outlast 2', 
+      store: 'Steam', 
+      price: 5990, 
+      discount: '-75%', 
+      originalPrice: 23990, 
+      icon: 'bi-steam',
+      image: '/juegos/outlast2.jpg' 
+    },
+    { 
+      id: 21, 
+      title: 'The Outlast Trials', 
+      store: 'Steam', 
+      price: 18990, 
+      discount: '-33%', 
+      originalPrice: 28340, 
+      icon: 'bi-steam',
+      image: '/juegos/outlast3.jpg' 
     }
   ]);
 
@@ -114,22 +224,20 @@ export function Catalog({ addToCart }) {
         <div className="row g-4">
           {games.map((game) => (
             <div key={game.id} className="col-12 col-md-6 col-lg-4">
-              <div className="card game-card bg-secondary bg-opacity-10 text-light h-100 shadow">
+              <div className="card game-card bg-secondary bg-opacity-10 text-light h-100 shadow overflow-hidden">
                 
-                {/* Portada con Zoom Panorámico */}
-                <div className="card-img-container">
+                <div className="card-img-container bg-black position-relative d-flex align-items-center justify-content-center" style={{ height: '210px' }}>
                   <img 
                     src={game.image} 
-                    className="card-img-top" 
+                    className="card-img-top w-100 h-100" 
                     alt={game.title} 
-                    style={{ height: '210px', objectFit: 'cover' }}
+                    style={{ objectFit: 'contain', padding: '6px' }}
                   />
                   <span className="position-absolute top-0 end-0 m-3 badge bg-danger fs-6 badge-pulse">
                     {game.discount}
                   </span>
                 </div>
 
-                {/* Detalles de la tarjeta */}
                 <div className="card-body d-flex flex-column justify-content-between p-4">
                   <div>
                     <div className="d-flex align-items-center mb-2 text-primary small fw-semibold store-tag">
@@ -148,7 +256,6 @@ export function Catalog({ addToCart }) {
                     </div>
                   </div>
 
-                  {/* Botón con ráfaga de brillo */}
                   <button 
                     className="btn btn-primary btn-animate w-100 fw-bold d-flex align-items-center justify-content-center gap-2 mt-2"
                     onClick={() => addToCart(game)}
