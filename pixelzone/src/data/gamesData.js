@@ -53,31 +53,35 @@ export const initialGames = [
   }
 ];
 
-// Obtener catálogo con respaldo automático
 export const getStoredGames = () => {
   const data = localStorage.getItem('pixelzone_games');
-  if (!data) return initialGames;
+  if (!data) {
+    localStorage.setItem('pixelzone_games', JSON.stringify(initialGames));
+    return initialGames;
+  }
   try {
     const parsed = JSON.parse(data);
-    return parsed && parsed.length > 0 ? parsed : initialGames;
+    if (!Array.isArray(parsed) || parsed.length === 0) {
+      localStorage.setItem('pixelzone_games', JSON.stringify(initialGames));
+      return initialGames;
+    }
+    return parsed;
   } catch (e) {
+    localStorage.setItem('pixelzone_games', JSON.stringify(initialGames));
     return initialGames;
   }
 };
 
-// Guardar en almacenamiento local
 export const saveGames = (games) => {
   localStorage.setItem('pixelzone_games', JSON.stringify(games));
 };
 
-// Función CRUD: Agregar Juego
 export const addGameCRUD = (games, newGame) => {
   const updated = [...games, { ...newGame, id: Date.now() }];
   saveGames(updated);
   return updated;
 };
 
-// Función CRUD: Eliminar Juego
 export const deleteGameCRUD = (games, id) => {
   const updated = games.filter(g => g.id !== id);
   saveGames(updated);
