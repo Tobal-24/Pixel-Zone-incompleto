@@ -1,72 +1,86 @@
-export function Navbar({ currentView, setCurrentView, cartCount, setIsCartOpen }) {
+import React from 'react';
+
+export function Navbar({ currentView, setCurrentView, cartCount, setIsCartOpen, user, setUser }) {
+  const handleLogout = () => {
+    setUser(null);
+    setCurrentView('inicio');
+  };
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow border-bottom border-secondary">
-      <div className="container">
-        <button 
-          className="navbar-brand btn btn-link text-primary fw-bold fs-3 text-decoration-none p-0"
+    <nav className="navbar navbar-expand-lg navbar-dark bg-secondary px-4 shadow-sm">
+      <div className="container-fluid">
+        <a 
+          className="navbar-brand fw-bold text-info fs-4 d-flex align-items-center gap-2" 
           onClick={() => setCurrentView('inicio')}
+          style={{ cursor: 'pointer' }}
         >
-          <i className="bi bi-controller me-2"></i>PixelZone
-        </button>
+          <i className="bi bi-controller"></i> PixelZone
+        </a>
 
-        <button 
-          className="navbar-toggler" 
-          type="button" 
-          data-bs-toggle="collapse" 
-          data-bs-target="#navbarNav"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
+        <div className="d-flex align-items-center gap-3">
+          <button 
+            className={`btn btn-sm ${currentView === 'inicio' ? 'btn-info' : 'btn-outline-light'}`}
+            onClick={() => setCurrentView('inicio')}
+          >
+            Inicio
+          </button>
+          
+          <button 
+            className={`btn btn-sm ${currentView === 'catalogo' ? 'btn-info' : 'btn-outline-light'}`}
+            onClick={() => setCurrentView('catalogo')}
+          >
+            Catálogo
+          </button>
 
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ms-auto me-3 align-items-center">
-            <li className="nav-item">
-              <button 
-                className={`nav-link btn btn-link text-decoration-none ${currentView === 'inicio' ? 'active fw-bold text-primary' : ''}`}
-                onClick={() => setCurrentView('inicio')}
-              >
-                Inicio
+          {/* Se visualiza ÚNICAMENTE si la cuenta logueada es de Administrador */}
+          {user?.role === 'admin' && (
+            <button 
+              className={`btn btn-sm ${currentView === 'admin' ? 'btn-warning' : 'btn-outline-warning'}`}
+              onClick={() => setCurrentView('admin')}
+            >
+              <i className="bi bi-shield-lock-fill me-1"></i>Panel Admin
+            </button>
+          )}
+
+          {/* Botón Carrito */}
+          <button 
+            className="btn btn-outline-info position-relative btn-sm me-2" 
+            onClick={() => setIsCartOpen(true)}
+          >
+            <i className="bi bi-cart-fill me-1"></i> Carrito
+            {cartCount > 0 && (
+              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {cartCount}
+              </span>
+            )}
+          </button>
+
+          {/* Estado de Sesión */}
+          {user ? (
+            <div className="d-flex align-items-center gap-2 border-start ps-3 border-secondary">
+              <span className="badge bg-success py-2 px-3 fs-6 fw-normal d-flex align-items-center gap-1">
+                <i className="bi bi-person-check-fill"></i> Hola, {user.nombre}
+              </span>
+              <button className="btn btn-outline-danger btn-sm" onClick={handleLogout}>
+                Salir
               </button>
-            </li>
-            <li className="nav-item">
+            </div>
+          ) : (
+            <div className="d-flex gap-2 border-start ps-3 border-secondary">
               <button 
-                className={`nav-link btn btn-link text-decoration-none ${currentView === 'catalogo' ? 'active fw-bold text-primary' : ''}`}
-                onClick={() => setCurrentView('catalogo')}
-              >
-                Catálogo
-              </button>
-            </li>
-            <li className="nav-item">
-              <button 
-                className={`nav-link btn btn-link text-decoration-none ${currentView === 'login' ? 'active fw-bold text-primary' : ''}`}
+                className={`btn btn-sm ${currentView === 'login' ? 'btn-info' : 'btn-outline-light'}`}
                 onClick={() => setCurrentView('login')}
               >
                 Iniciar Sesión
               </button>
-            </li>
-          </ul>
-
-          <div className="d-flex gap-2 align-items-center mt-2 mt-lg-0">
-            <button 
-              className={`btn btn-outline-primary btn-sm ${currentView === 'registro' ? 'active' : ''}`}
-              onClick={() => setCurrentView('registro')}
-            >
-              Registrarse
-            </button>
-
-            {/* Botón del Carrito */}
-            <button 
-              className="btn btn-warning position-relative ms-2 fw-semibold"
-              onClick={() => setIsCartOpen(true)}
-            >
-              <i className="bi bi-cart-fill me-1"></i> Carrito
-              {cartCount > 0 && (
-                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  {cartCount}
-                </span>
-              )}
-            </button>
-          </div>
+              <button 
+                className={`btn btn-sm ${currentView === 'registro' ? 'btn-info' : 'btn-primary'}`}
+                onClick={() => setCurrentView('registro')}
+              >
+                Registrarse
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </nav>

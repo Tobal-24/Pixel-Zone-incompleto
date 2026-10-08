@@ -1,118 +1,86 @@
-export function CartModal({ 
-  isOpen, 
-  onClose, 
-  cart = [], 
-  updateQuantity, 
-  removeFromCart, 
-  clearCart,
-  onNavigateToCatalog
-}) {
+import React from 'react';
+
+export function CartModal({ isOpen, onClose, cart, removeFromCart, setCurrentView, user, setLastOrder, clearCart }) {
   if (!isOpen) return null;
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  const handleGoToCatalog = () => {
-    onClose();
-    if (onNavigateToCatalog) {
-      onNavigateToCatalog();
+  const handleFinalizarCompra = () => {
+    if (cart.length === 0) {
+      alert('El carrito está vacío.');
+      return;
     }
+
+    // Datos del cliente (registrado o valores por defecto)
+    const clientData = user || {
+      nombre: 'pedro',
+      apellidos: 'hacker',
+      correo: 'pedro.hacker20@example.com',
+      calle: 'Los crisantemos, Edificio Norte',
+      depto: 'Depto 603',
+      region: 'Región Metropolitana de Santiago',
+      comuna: 'Cerrillos',
+      indicaciones: 'El martes no estaremos en el depto, pero puede dejarselo con el conserje.'
+    };
+
+    // Generar la orden completa
+    const order = {
+      orderNum: Math.floor(10000000 + Math.random() * 90000000).toString(),
+      orderCode: `ORDER${Math.floor(10000 + Math.random() * 90000)}`,
+      ...clientData,
+      items: cart.map(item => ({
+        name: item.title,
+        price: item.price,
+        quantity: item.quantity
+      }))
+    };
+
+    setLastOrder(order);
+    alert('¡Gracias por tu compra en PixelZone!');
+    clearCart();
+    onClose();
+    setCurrentView('compra-exitosa');
   };
 
   return (
-    <div 
-      className="modal show d-block" 
-      tabIndex="-1" 
-      style={{ backgroundColor: 'rgba(0,0,0,0.85)', zIndex: 1050 }}
-    >
+    <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.75)' }} tabIndex="-1">
       <div className="modal-dialog modal-lg modal-dialog-centered">
-        <div className="modal-content bg-dark text-light border border-secondary shadow-lg">
-          
-          {/* Encabezado */}
-          <div className="modal-header border-secondary p-3">
-            <h5 className="modal-title fw-bold text-primary d-flex align-items-center gap-2">
-              <i className="bi bi-cart-check-fill fs-4"></i>
-              Tu Carrito de Compras
+        <div className="modal-content bg-dark text-light border-secondary">
+          <div className="modal-header border-secondary">
+            <h5 className="modal-title text-info fw-bold">
+              <i className="bi bi-cart-fill me-2"></i>Tu Carrito de Compras
             </h5>
-            <button 
-              type="button" 
-              className="btn-close btn-close-white" 
-              onClick={onClose}
-            ></button>
+            <button type="button" className="btn-close btn-close-white" onClick={onClose}></button>
           </div>
-
-          {/* Cuerpo del Modal */}
-          <div className="modal-body p-4 text-light">
+          <div className="modal-body">
             {cart.length === 0 ? (
-              <div className="text-center py-4">
-                <i className="bi bi-cart-x display-1 text-secondary mb-3 d-block"></i>
-                <h4 className="fw-bold text-light mb-2">Tu carrito está vacío</h4>
-                <p className="text-white-50 mb-4">Agrega productos desde el catálogo para verlos aquí.</p>
-                
-                {/* Botón para ir al Catálogo directamente */}
-                <button 
-                  className="btn btn-primary btn-animate fw-bold px-4 py-2"
-                  onClick={handleGoToCatalog}
-                >
-                  <i className="bi bi-controller me-2 fs-5 align-middle"></i>
-                  Explorar Catálogo de Juegos
-                </button>
-              </div>
+              <p className="text-center my-4 text-muted">El carrito está vacío.</p>
             ) : (
               <div className="table-responsive">
-                <table className="table table-dark table-hover align-middle mb-0">
+                <table className="table table-dark align-middle">
                   <thead>
                     <tr>
-                      <th scope="col">Juego</th>
-                      <th scope="col">Precio</th>
-                      <th scope="col" className="text-center">Cantidad</th>
-                      <th scope="col">Subtotal</th>
-                      <th scope="col" className="text-end">Acción</th>
+                      <th>Juego</th>
+                      <th>Precio</th>
+                      <th>Cantidad</th>
+                      <th>Subtotal</th>
+                      <th className="text-center">Acción</th>
                     </tr>
                   </thead>
                   <tbody>
                     {cart.map((item) => (
                       <tr key={item.id}>
                         <td>
-                          <div className="d-flex align-items-center gap-3">
-                            {item.image && (
-                              <img 
-                                src={item.image} 
-                                alt={item.title} 
-                                style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '6px' }}
-                              />
-                            )}
-                            <span className="fw-bold text-white">{item.title}</span>
+                          <div className="d-flex align-items-center gap-2">
+                            <img src={item.image} alt={item.title} width="40" height="30" className="rounded object-fit-cover" />
+                            <span className="fw-semibold">{item.title}</span>
                           </div>
                         </td>
-                        <td className="text-light">${item.price.toLocaleString('es-CL')}</td>
+                        <td>${item.price.toLocaleString('es-CL')}</td>
+                        <td>{item.quantity}</td>
+                        <td className="text-success fw-bold">${(item.price * item.quantity).toLocaleString('es-CL')}</td>
                         <td className="text-center">
-                          <div className="btn-group btn-group-sm" role="group">
-                            <button 
-                              className="btn btn-outline-light btn-animate" 
-                              onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            >
-                              -
-                            </button>
-                            <span className="btn btn-dark disabled border-secondary px-3 fw-bold text-white">
-                              {item.quantity}
-                            </span>
-                            <button 
-                              className="btn btn-outline-light btn-animate" 
-                              onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                            >
-                              +
-                            </button>
-                          </div>
-                        </td>
-                        <td className="fw-bold text-success">
-                          ${(item.price * item.quantity).toLocaleString('es-CL')}
-                        </td>
-                        <td className="text-end">
-                          <button 
-                            className="btn btn-sm btn-outline-danger btn-animate" 
-                            onClick={() => removeFromCart(item.id)}
-                            title="Eliminar"
-                          >
+                          <button className="btn btn-outline-danger btn-sm" onClick={() => removeFromCart(item.id)}>
                             <i className="bi bi-trash"></i>
                           </button>
                         </td>
@@ -123,36 +91,24 @@ export function CartModal({
               </div>
             )}
           </div>
-
-          {/* Pie del Modal */}
-          <div className="modal-footer border-secondary justify-content-between p-3">
-            {cart.length > 0 ? (
-              <>
-                <button className="btn btn-outline-danger btn-sm fw-semibold btn-animate" onClick={clearCart}>
-                  <i className="bi bi-trash me-1"></i> Vaciar Carrito
-                </button>
-                <div className="d-flex align-items-center gap-2">
-                  <button className="btn btn-outline-light btn-animate me-2" onClick={handleGoToCatalog}>
-                    <i className="bi bi-arrow-left me-1"></i> Seguir Comprando
-                  </button>
-                  <h4 className="mb-0 fw-bold text-white me-2">
-                    Total: <span className="text-success">${total.toLocaleString('es-CL')}</span>
-                  </h4>
-                  <button 
-                    className="btn btn-primary fw-bold px-4 btn-animate" 
-                    onClick={() => alert('¡Gracias por tu compra en PixelZone!')}
-                  >
-                    Finalizar Compra
-                  </button>
-                </div>
-              </>
-            ) : (
-              <button className="btn btn-secondary btn-sm ms-auto" onClick={onClose}>
-                Cerrar
+          <div className="modal-footer border-secondary justify-content-between">
+            <button type="button" className="btn btn-outline-light" onClick={onClose}>
+              <i className="bi bi-arrow-left me-1"></i>Seguir Comprando
+            </button>
+            <div className="d-flex align-items-center gap-3">
+              <h5 className="m-0 fw-bold">
+                Total: <span className="text-success">${total.toLocaleString('es-CL')}</span>
+              </h5>
+              <button 
+                type="button" 
+                className="btn btn-primary fw-bold px-4"
+                onClick={handleFinalizarCompra}
+                disabled={cart.length === 0}
+              >
+                Finalizar Compra
               </button>
-            )}
+            </div>
           </div>
-
         </div>
       </div>
     </div>

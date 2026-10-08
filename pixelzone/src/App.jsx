@@ -1,70 +1,73 @@
 import { useState } from 'react';
+import './styles/App.css';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { DealsGrid } from './components/DealsGrid';
 import { Catalog } from './components/Catalog';
+import { Checkout } from './components/Checkout';
+import { CheckoutSuccess } from './components/CheckoutSuccess';
+import { AdminDashboard } from './components/AdminDashboard';
 import { Login } from './components/Login';
 import { Register } from './components/Register';
 import { CartModal } from './components/CartModal';
 import { Footer } from './components/Footer';
+import { getStoredGames, addGameCRUD, deleteGameCRUD } from './data/gamesData';
 
-function App() {
-  // Estado para la navegación ('inicio', 'catalogo', 'login', 'registro')
+export default function App() {
   const [currentView, setCurrentView] = useState('inicio');
-
-  // Estado para el carrito de compras
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [games, setGames] = useState(getStoredGames());
+  
+  // Estado de Usuario y Última Orden realizada
+  const [user, setUser] = useState(null);
+  const [lastOrder, setLastOrder] = useState(null);
 
-  // Funciones del carrito
-  const addToCart = (game) => {
+  // Gestión del Carrito
+  const addToCart = (product) => {
     setCart((prevCart) => {
-      const existingItem = prevCart.find((item) => item.id === game.id);
-      if (existingItem) {
+      const existing = prevCart.find((item) => item.id === product.id);
+      if (existing) {
         return prevCart.map((item) =>
-          item.id === game.id ? { ...item, quantity: item.quantity + 1 } : item
+          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
         );
       }
-      return [...prevCart, { ...game, quantity: 1 }];
+      return [...prevCart, { ...product, quantity: 1 }];
     });
-    setIsCartOpen(true); // Abre el carrito al añadir un producto
-  };
-
-  const updateQuantity = (id, newQuantity) => {
-    if (newQuantity <= 0) {
-      removeFromCart(id);
-    } else {
-      setCart((prevCart) =>
-        prevCart.map((item) => (item.id === id ? { ...item, quantity: newQuantity } : item))
-      );
-    }
   };
 
   const removeFromCart = (id) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
-  const clearCart = () => setCart([]);
+  const clearCart = () => {
+    setCart([]);
+  };
+
+  // Operaciones CRUD de Juegos (Administrador)
+  const handleAddGame = (newGame) => {
+    const updated = addGameCRUD(games, newGame);
+    setGames(updated);
+  };
+
+  const handleDeleteGame = (id) => {
+    const updated = deleteGameCRUD(games, id);
+    setGames(updated);
+  };
 
   const totalCartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <div className="bg-dark text-light min-vh-100 d-flex flex-column">
-      <Navbar 
-        currentView={currentView} 
-        setCurrentView={setCurrentView} 
+    <div className="d-flex flex-column min-vh-100 bg-dark text-light">
+      <Navbar
+        currentView={currentView}
+        setCurrentView={setCurrentView}
         cartCount={totalCartCount}
         setIsCartOpen={setIsCartOpen}
+        user={user}
+        setUser={setUser}
       />
-<CartModal 
-        isOpen={isCartOpen} 
-        onClose={() => setIsCartOpen(false)} 
-        cart={cart}
-        updateQuantity={updateQuantity}
-        removeFromCart={removeFromCart}
-        clearCart={clearCart}
-        onNavigateToCatalog={() => setCurrentView('catalogo')}
-      />
+
       <main className="flex-grow-1">
         {currentView === 'inicio' && (
           <>
@@ -73,21 +76,56 @@ function App() {
           </>
         )}
 
-        {currentView === 'catalogo' && (
-          <Catalog addToCart={addToCart} />
+       {currentView === 'catalogo' && (
+  <Catalog games={games} addToCart={addToCart} />
+)}
+
+        {currentView === 'checkout' && (
+          <Checkout
+            cart={cart}
+            clearCart={clearCart}
+            setCurrentView={setCurrentView}
+          />
         )}
 
-        {currentView === 'login' && <Login />}
+        {currentView === 'compra-exitosa' && (
+          <CheckoutSuccess 
+            orderData={lastOrder} 
+            setCurrentView={setCurrentView} 
+          />
+        )}
 
-        {currentView === 'registro' && <Register />}
+        {currentView === 'admin' && (
+          <AdminDashboard
+            games={games}
+            onAddGame={handleAddGame}
+            onDeleteGame={handleDeleteGame}
+          />
+        )}
+
+        {currentView === 'login' && (
+          <Login 
+            setCurrentView={setCurrentView} 
+            setUser={setUser} 
+          />
+        )}
+
+        {currentView === 'registro' && (
+          <Register 
+            setCurrentView={setCurrentView} 
+            setUser={setUser} 
+          />
+        )}
       </main>
 
-      <CartModal 
-        isOpen={isCartOpen} 
-        onClose={() => setIsCartOpen(false)} 
+      <CartModal
+        isOpen={isCartOpen}
+        onClose={() => setIsCartOpen(false)}
         cart={cart}
-        updateQuantity={updateQuantity}
         removeFromCart={removeFromCart}
+        setCurrentView={setCurrentView}
+        user={user}
+        setLastOrder={setLastOrder}
         clearCart={clearCart}
       />
 
@@ -95,5 +133,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
