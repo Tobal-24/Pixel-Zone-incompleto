@@ -23,7 +23,7 @@ export default function App() {
   const [user, setUser] = useState(null);
   const [lastOrder, setLastOrder] = useState(null);
 
-  // Gestión del Carrito
+  // Gestión del Carrito (Abre automáticamente el modal al añadir)
   const addToCart = (product) => {
     setCart((prevCart) => {
       const existing = prevCart.find((item) => item.id === product.id);
@@ -34,6 +34,9 @@ export default function App() {
       }
       return [...prevCart, { ...product, quantity: 1 }];
     });
+    
+    // Abre la ventana flotante del carrito
+    setIsCartOpen(true);
   };
 
   const removeFromCart = (id) => {
@@ -76,9 +79,12 @@ export default function App() {
           </>
         )}
 
-       {currentView === 'catalogo' && (
-  <Catalog games={games} addToCart={addToCart} />
-)}
+        {currentView === 'catalogo' && (
+          <Catalog 
+            games={games} 
+            addToCart={addToCart} 
+          />
+        )}
 
         {currentView === 'checkout' && (
           <Checkout
