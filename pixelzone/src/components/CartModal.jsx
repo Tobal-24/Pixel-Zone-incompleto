@@ -1,17 +1,41 @@
-export function CartModal({ 
-  isOpen, 
-  onClose, 
-  cart = [], 
-  updateQuantity, 
-  removeFromCart, 
-  clearCart,
-  onNavigateToCatalog
-}) {
+import React from 'react';
+
+export function CartModal({ isOpen, onClose, cart, removeFromCart, updateQuantity, setCurrentView, user, setLastOrder, clearCart }) {
   if (!isOpen) return null;
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  const handleGoToCatalog = () => {
+  const handleFinalizarCompra = () => {
+    if (cart.length === 0) {
+      alert('El carrito está vacío.');
+      return;
+    }
+
+    const clientData = user || {
+      nombre: 'pedro',
+      apellidos: 'hacker',
+      correo: 'pedro.hacker20@example.com',
+      calle: 'Los crisantemos, Edificio Norte',
+      depto: 'Depto 603',
+      region: 'Región Metropolitana de Santiago',
+      comuna: 'Cerrillos',
+      indicaciones: 'El martes no estaremos en el depto, pero puede dejarselo con el conserje.'
+    };
+
+    const order = {
+      orderNum: Math.floor(10000000 + Math.random() * 90000000).toString(),
+      orderCode: `ORDER${Math.floor(10000 + Math.random() * 90000)}`,
+      ...clientData,
+      items: cart.map(item => ({
+        name: item.title,
+        price: item.price,
+        quantity: item.quantity
+      }))
+    };
+
+    setLastOrder(order);
+    alert('¡Gracias por tu compra en PixelZone!');
+    clearCart();
     onClose();
     if (onNavigateToCatalog) {
       onNavigateToCatalog();
@@ -84,7 +108,25 @@ export function CartModal({
                             <span className="fw-bold text-white">{item.title}</span>
                           </div>
                         </td>
-                        <td className="text-light">${item.price.toLocaleString('es-CL')}</td>
+                        <td>${item.price.toLocaleString('es-CL')}</td>
+                        <td>
+                          <div className="d-flex align-items-center gap-2">
+                            <button 
+                              className="btn btn-sm btn-outline-info" 
+                              onClick={() => updateQuantity(item.id, -1)}
+                            >
+                              <i className="bi bi-dash"></i>
+                            </button>
+                            <span className="fw-bold">{item.quantity}</span>
+                            <button 
+                              className="btn btn-sm btn-outline-info" 
+                              onClick={() => updateQuantity(item.id, 1)}
+                            >
+                              <i className="bi bi-plus"></i>
+                            </button>
+                          </div>
+                        </td>
+                        <td className="text-success fw-bold">${(item.price * item.quantity).toLocaleString('es-CL')}</td>
                         <td className="text-center">
                           <div className="btn-group btn-group-sm" role="group">
                             <button 

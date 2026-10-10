@@ -226,34 +226,16 @@ export function Catalog({ addToCart }) {
             <div key={game.id} className="col-12 col-md-6 col-lg-4">
               <div className="card game-card bg-secondary bg-opacity-10 text-light h-100 shadow overflow-hidden">
                 
-                <div className="card-img-container bg-black position-relative d-flex align-items-center justify-content-center" style={{ height: '210px' }}>
-                  <img 
-                    src={game.image} 
-                    className="card-img-top w-100 h-100" 
-                    alt={game.title} 
-                    style={{ objectFit: 'contain', padding: '6px' }}
-                  />
-                  <span className="position-absolute top-0 end-0 m-3 badge bg-danger fs-6 badge-pulse">
-                    {game.discount}
-                  </span>
-                </div>
-
-                <div className="card-body d-flex flex-column justify-content-between p-4">
-                  <div>
-                    <div className="d-flex align-items-center mb-2 text-primary small fw-semibold store-tag">
-                      <i className={`bi ${game.icon} me-2 fs-5`}></i>
-                      <span>{game.store}</span>
-                    </div>
-                    <h4 className="card-title fw-bold text-white mb-3">{game.title}</h4>
-                    
-                    <div className="d-flex align-items-baseline mb-3">
-                      <span className="fs-3 fw-bold text-success me-2">
-                        ${game.price.toLocaleString('es-CL')}
-                      </span>
-                      <span className="text-muted text-decoration-line-through small">
+                <div className="mt-3">
+                  <div className="d-flex align-items-baseline gap-2 mb-2">
+                    <span className="fs-4 fw-bold" style={{ color: '#00ff88' }}>
+                      ${game.price.toLocaleString('es-CL')}
+                    </span>
+                    {game.originalPrice && (
+                      <span className="text-light text-decoration-line-through small opacity-75">
                         ${game.originalPrice.toLocaleString('es-CL')}
                       </span>
-                    </div>
+                    )}
                   </div>
 
                   <button 

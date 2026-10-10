@@ -15,9 +15,18 @@ function App() {
   // Estado para el carrito de compras
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+<<<<<<< Updated upstream
 
   // Funciones del carrito
   const addToCart = (game) => {
+=======
+  const [games, setGames] = useState(getStoredGames());
+  
+  const [user, setUser] = useState(null);
+  const [lastOrder, setLastOrder] = useState(null);
+
+  const addToCart = (product) => {
+>>>>>>> Stashed changes
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.id === game.id);
       if (existingItem) {
@@ -27,6 +36,7 @@ function App() {
       }
       return [...prevCart, { ...game, quantity: 1 }];
     });
+<<<<<<< Updated upstream
     setIsCartOpen(true); // Abre el carrito al añadir un producto
   };
 
@@ -38,13 +48,42 @@ function App() {
         prevCart.map((item) => (item.id === id ? { ...item, quantity: newQuantity } : item))
       );
     }
+=======
+    setIsCartOpen(true);
+>>>>>>> Stashed changes
+  };
+
+  const updateQuantity = (id, delta) => {
+    setCart((prevCart) => prevCart.map((item) => {
+      if (item.id === id) {
+        const newQuantity = item.quantity + delta;
+        return newQuantity > 0 ? { ...item, quantity: newQuantity } : item;
+      }
+      return item;
+    }));
   };
 
   const removeFromCart = (id) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
+<<<<<<< Updated upstream
   const clearCart = () => setCart([]);
+=======
+  const clearCart = () => {
+    setCart([]);
+  };
+
+  const handleAddGame = (newGame) => {
+    const updated = addGameCRUD(games, newGame);
+    setGames(updated);
+  };
+
+  const handleDeleteGame = (id) => {
+    const updated = deleteGameCRUD(games, id);
+    setGames(updated);
+  };
+>>>>>>> Stashed changes
 
   const totalCartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -88,6 +127,13 @@ function App() {
         cart={cart}
         updateQuantity={updateQuantity}
         removeFromCart={removeFromCart}
+<<<<<<< Updated upstream
+=======
+        updateQuantity={updateQuantity}
+        setCurrentView={setCurrentView}
+        user={user}
+        setLastOrder={setLastOrder}
+>>>>>>> Stashed changes
         clearCart={clearCart}
       />
 
