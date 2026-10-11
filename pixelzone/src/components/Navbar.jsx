@@ -38,6 +38,14 @@ export function Navbar({ currentView, setCurrentView, cartCount, setIsCartOpen }
             </li>
             <li className="nav-item">
               <button 
+                className={`nav-link btn btn-link text-decoration-none ${currentView === 'contacto' ? 'active fw-bold text-primary' : ''}`}
+                onClick={() => setCurrentView('contacto')}
+              >
+                Contacto
+              </button>
+            </li>
+            <li className="nav-item">
+              <button 
                 className={`nav-link btn btn-link text-decoration-none ${currentView === 'login' ? 'active fw-bold text-primary' : ''}`}
                 onClick={() => setCurrentView('login')}
               >

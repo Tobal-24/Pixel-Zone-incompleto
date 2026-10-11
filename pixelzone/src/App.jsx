@@ -5,11 +5,12 @@ import { DealsGrid } from './components/DealsGrid';
 import { Catalog } from './components/Catalog';
 import { Login } from './components/Login';
 import { Register } from './components/Register';
+import { Contacto } from './components/Contacto';
 import { CartModal } from './components/CartModal';
 import { Footer } from './components/Footer';
 
 function App() {
-  // Estado para la navegación ('inicio', 'catalogo', 'login', 'registro')
+  // Estado para la navegación ('inicio', 'catalogo', 'login', 'registro', 'contacto')
   const [currentView, setCurrentView] = useState('inicio');
 
   // Estado para el carrito de compras
@@ -56,7 +57,8 @@ function App() {
         cartCount={totalCartCount}
         setIsCartOpen={setIsCartOpen}
       />
-<CartModal 
+
+      <CartModal 
         isOpen={isCartOpen} 
         onClose={() => setIsCartOpen(false)} 
         cart={cart}
@@ -65,6 +67,7 @@ function App() {
         clearCart={clearCart}
         onNavigateToCatalog={() => setCurrentView('catalogo')}
       />
+
       <main className="flex-grow-1">
         {currentView === 'inicio' && (
           <>
@@ -80,16 +83,9 @@ function App() {
         {currentView === 'login' && <Login />}
 
         {currentView === 'registro' && <Register />}
-      </main>
 
-      <CartModal 
-        isOpen={isCartOpen} 
-        onClose={() => setIsCartOpen(false)} 
-        cart={cart}
-        updateQuantity={updateQuantity}
-        removeFromCart={removeFromCart}
-        clearCart={clearCart}
-      />
+        {currentView === 'contacto' && <Contacto />}
+      </main>
 
       <Footer />
     </div>
