@@ -8,7 +8,6 @@ export function Login({ setCurrentView, setUser }) {
     e.preventDefault();
     if (!email) return;
 
-    // Detectar si la cuenta es de administrador
     const isAdmin = email.toLowerCase().includes('admin');
 
     const loggedUser = {

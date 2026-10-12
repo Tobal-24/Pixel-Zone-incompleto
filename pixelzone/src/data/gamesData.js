@@ -1,4 +1,3 @@
-// Fuente de datos e historia de ofertas (Persistencia Local + CRUD)
 
 export const initialGames = [
   { 

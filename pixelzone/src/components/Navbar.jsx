@@ -32,7 +32,7 @@ export function Navbar({ currentView, setCurrentView, cartCount, setIsCartOpen, 
             Catálogo
           </button>
 
-          {/* Se visualiza ÚNICAMENTE si la cuenta logueada es de Administrador */}
+          {}
           {user?.role === 'admin' && (
             <button 
               className={`btn btn-sm ${currentView === 'admin' ? 'btn-warning' : 'btn-outline-warning'}`}
@@ -42,7 +42,7 @@ export function Navbar({ currentView, setCurrentView, cartCount, setIsCartOpen, 
             </button>
           )}
 
-          {/* Botón Carrito */}
+          {}
           <button 
             className="btn btn-outline-info position-relative btn-sm me-2" 
             onClick={() => setIsCartOpen(true)}
@@ -55,7 +55,7 @@ export function Navbar({ currentView, setCurrentView, cartCount, setIsCartOpen, 
             )}
           </button>
 
-          {/* Estado de Sesión */}
+          {}
           {user ? (
             <div className="d-flex align-items-center gap-2 border-start ps-3 border-secondary">
               <span className="badge bg-success py-2 px-3 fs-6 fw-normal d-flex align-items-center gap-1">

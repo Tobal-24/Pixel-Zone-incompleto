@@ -19,11 +19,9 @@ export default function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [games, setGames] = useState(getStoredGames());
   
-  // Estado de Usuario y Última Orden realizada
   const [user, setUser] = useState(null);
   const [lastOrder, setLastOrder] = useState(null);
 
-  // Gestión del Carrito (Abre automáticamente el modal al añadir)
   const addToCart = (product) => {
     setCart((prevCart) => {
       const existing = prevCart.find((item) => item.id === product.id);
@@ -35,7 +33,6 @@ export default function App() {
       return [...prevCart, { ...product, quantity: 1 }];
     });
     
-    // Abre la ventana flotante del carrito
     setIsCartOpen(true);
   };
 
@@ -47,7 +44,6 @@ export default function App() {
     setCart([]);
   };
 
-  // Operaciones CRUD de Juegos (Administrador)
   const handleAddGame = (newGame) => {
     const updated = addGameCRUD(games, newGame);
     setGames(updated);

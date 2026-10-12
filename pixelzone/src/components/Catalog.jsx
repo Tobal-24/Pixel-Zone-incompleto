@@ -2,7 +2,6 @@ import React from 'react';
 import { initialGames } from '../data/gamesData';
 
 export function Catalog({ games = [], addToCart }) {
-  // Respaldo inmediato si el arreglo viene vacío
   const displayGames = (games && games.length > 0) ? games : initialGames;
 
   return (
@@ -34,7 +33,7 @@ export function Catalog({ games = [], addToCart }) {
                 
                 <div className="mt-3">
                   <div className="d-flex align-items-baseline gap-2 mb-2">
-                    {/* Verde Neón de alto contraste */}
+                    
                     <span className="fs-4 fw-bold" style={{ color: '#00ff88' }}>
                       ${game.price.toLocaleString('es-CL')}
                     </span>

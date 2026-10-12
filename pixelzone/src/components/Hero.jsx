@@ -9,7 +9,7 @@ export function Hero({ setCurrentView }) {
           Encuentra los mejores descuentos en videojuegos para Steam, Epic Games, PlayStation y Xbox en tiempo real.
         </p>
         
-        {/* Botón interactivo que redirige al catálogo */}
+        {}
         <button 
           className="btn btn-primary btn-lg btn-animate fw-bold px-4 shadow"
           onClick={() => setCurrentView && setCurrentView('catalogo')}

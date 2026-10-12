@@ -26,7 +26,7 @@ export function CheckoutSuccess({ orderData, setCurrentView }) {
     <div className="container py-5 text-dark">
       <div className="card shadow-lg p-4 bg-light mx-auto border-0" style={{ maxWidth: '850px', borderRadius: '12px' }}>
         
-        {/* Encabezado con número de orden */}
+        {}
         <div className="d-flex justify-content-between align-items-center mb-2 border-bottom pb-3">
           <h5 className="text-success fw-bold m-0 d-flex align-items-center gap-2">
             <i className="bi bi-check-circle fs-4"></i>
@@ -37,7 +37,7 @@ export function CheckoutSuccess({ orderData, setCurrentView }) {
 
         <p className="text-muted small mb-3">Información de la compra realizada</p>
 
-        {/* Información personal */}
+        {}
         <div className="row g-2 mb-3">
           <div className="col-md-4">
             <label className="form-label small text-muted mb-1">Nombre*</label>
@@ -53,7 +53,7 @@ export function CheckoutSuccess({ orderData, setCurrentView }) {
           </div>
         </div>
 
-        {/* Dirección de entrega */}
+        {}
         <h6 className="fw-bold mt-2 mb-2 text-dark">Dirección de entrega de los productos</h6>
         <div className="row g-2 mb-3">
           <div className="col-md-7">
@@ -74,13 +74,13 @@ export function CheckoutSuccess({ orderData, setCurrentView }) {
           </div>
         </div>
 
-        {/* Indicaciones de entrega */}
+        {}
         <div className="mb-4">
           <label className="form-label small text-muted mb-1">Indicaciones para la entrega (opcional)</label>
           <textarea className="form-control form-control-sm bg-white" rows="2" value={data.indicaciones || 'Sin indicaciones especiales.'} readOnly />
         </div>
 
-        {/* Tabla resumen de artículos */}
+        {}
         <div className="table-responsive mb-3">
           <table className="table table-sm align-middle text-center mb-0">
             <thead>
@@ -108,12 +108,12 @@ export function CheckoutSuccess({ orderData, setCurrentView }) {
           </table>
         </div>
 
-        {/* Total pagado */}
+        {}
         <div className="bg-white border rounded text-center py-2 mb-4 shadow-sm">
           <h5 className="fw-bold m-0 text-dark">Total pagado: $ {totalPaid.toLocaleString('es-CL')}</h5>
         </div>
 
-        {/* Botones de acción final */}
+        {}
         <div className="d-flex justify-content-center gap-2">
           <button className="btn btn-danger btn-sm px-3" onClick={() => window.print()}>
             Imprimir boleta en PDF

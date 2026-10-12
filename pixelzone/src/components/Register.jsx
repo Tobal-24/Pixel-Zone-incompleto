@@ -19,7 +19,6 @@ export function Register({ setCurrentView, setUser }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Guardar los datos ingresados por el usuario
     setUser(formData);
     alert(`¡Cuenta creada con éxito! Bienvenido ${formData.nombre}.`);
     setCurrentView('catalogo');
